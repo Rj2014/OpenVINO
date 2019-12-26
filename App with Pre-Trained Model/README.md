@@ -25,3 +25,4 @@ python app.py -i "images/sitting-on-car.jpg" -t "POSE" -m "/home/workspace/model
 The results of your output will be saved down for viewing in the `outputs` directory.
 
 Use the input images and models appropriately.
+## Note: Files with ".bin" and ".xml" are the pre-trained model files
