@@ -11,23 +11,25 @@ CAR_TYPES = ["car", "bus", "truck", "van"]
 
 
 def get_args():
-    
-    #Gets the arguments from the command line.    
+    '''
+    Gets the arguments from the command line.
+    '''
+
     parser = argparse.ArgumentParser("Basic Edge App with Inference Engine")
-    
-    #Create the descriptions for the commands
+    # -- Create the descriptions for the commands
+
     c_desc = "CPU extension file location, if applicable"
     d_desc = "Device, if not CPU (GPU, FPGA, MYRIAD)"
     i_desc = "The location of the input image"
     m_desc = "The location of the model XML file"
     t_desc = "The type of model: POSE, TEXT or CAR_META"
 
-    #Add required and optional groups
+    # -- Add required and optional groups
     parser._action_groups.pop()
     required = parser.add_argument_group('required arguments')
     optional = parser.add_argument_group('optional arguments')
 
-    #Create the arguments
+    # -- Create the arguments
     required.add_argument("-i", help=i_desc, required=True)
     required.add_argument("-m", help=m_desc, required=True)
     required.add_argument("-t", help=t_desc, required=True)
@@ -106,7 +108,7 @@ def perform_inference(args):
     # Read the input image
     image = cv2.imread(args.i)
 
-    ### TODO: Preprocess the input image
+    ### Preprocess the input image
     preprocessed_image = preprocessing(image, h, w)
 
     # Perform synchronous inference on the image
@@ -115,8 +117,8 @@ def perform_inference(args):
     # Obtain the output of the inference request
     output = inference_network.extract_output()
 
-    ### TODO: Handle the output of the network, based on args.t
-    ### Note: This will require using `handle_output` to get the correct
+    ### Handle the output of the network, based on args.t
+    ### This will require using `handle_output` to get the correct
     ###       function, and then feeding the output to that function.
     output_func = handle_output(args.t)
     processed_output = output_func(output, image.shape)
